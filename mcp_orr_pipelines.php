@@ -7,6 +7,32 @@
 
 if (!defined('_ECRIRE_INC_VERSION')) return;
 
+function mcp_orr_affiche_milieu($flux) {
+    $texte = "";
+    $e = trouver_objet_exec($flux['args']['exec']);
+
+
+
+    // orr_ressources sur les articles
+    if (!$e['edition'] AND in_array($e['type'], array('article'))) {
+        echo ok;
+        $texte .= recuperer_fond('prive/objets/editer/liens', array(
+            'table_source' => 'orr_ressources',
+            'objet' => $e['type'],
+            'id_objet' => $flux['args'][$e['id_table_objet']]
+        ));
+    }
+
+    if ($texte) {
+        if ($p=strpos($flux['data'],"<!--affiche_milieu-->"))
+            $flux['data'] = substr_replace($flux['data'],$texte,$p,0);
+        else
+            $flux['data'] .= $texte;
+    }
+
+    return $flux;
+}
+
 function mcp_orr_formulaire_charger($flux){
  $form=$flux['args']['form'];
  

@@ -57,7 +57,6 @@
         <tbody>
     <BOUCLE_ressource(spip_orr_ressources){id_mot IN #GET{motcle2}}>
             <tr class="tr_plus">
-
                 <td>#ID_ORR_RESSOURCE. #ORR_RESSOURCE_NOM</td>
                 <td  id="lundi" class="largeurcol"><INCLURE{fond=inclure/cellule,idressource=#ID_ORR_RESSOURCE,orr_ressource_nom=#ORR_RESSOURCE_NOM,jour=#GET{lundi},jourplus=#GET{mardi},couleur=#ORR_RESSOURCE_COULEUR} /></td>
                 <td  id="mardi" class="largeurcol"><INCLURE{fond=inclure/cellule}{idressource=#ID_ORR_RESSOURCE,jour=#GET{mardi},jourplus=#GET{mercredi},couleur=#ORR_RESSOURCE_COULEUR} /></td>
