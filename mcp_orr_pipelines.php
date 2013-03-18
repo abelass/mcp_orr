@@ -66,7 +66,6 @@ function mcp_orr_formulaire_charger($flux){
   
  // cré un contact si pas encore existant
  if($form == 'editer_orr_ressource'){
-     echo serialize($flux);
         if(!isset($flux['data']['texte']))$flux['data']['texte']='';
         if(!isset($flux['data']['descriptif']))$flux['data']['descriptif']='';        
     }
