@@ -15,7 +15,6 @@ function mcp_orr_affiche_milieu($flux) {
 
     // orr_ressources sur les articles
     if (!$e['edition'] AND in_array($e['type'], array('article'))) {
-        echo ok;
         $texte .= recuperer_fond('prive/objets/editer/liens', array(
             'table_source' => 'orr_ressources',
             'objet' => $e['type'],
@@ -96,4 +95,9 @@ function mcp_orr_formulaire_traiter($flux){
     return($flux);
 }
 
+function mcp_orr_optimiser_base_disparus($flux){
+    include_spip('action/editer_liens');
+    $flux['data'] += objet_optimiser_liens(array('orr_ressource'=>'*'),'*');
+    return $flux;
+}
 ?>
