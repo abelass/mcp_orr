@@ -18,12 +18,16 @@
 	<auteur lien='http://mychacra.net/'>Rainer Müller</auteur>
 
 	<licence>GNU/GPL</licence>
+	
+	<necessite nom="oresource" compatibilite="[2.0.0;]" />
+	<pipeline nom="formulaire_charger" inclure="mcp_orr_pipelines.php" />
+	<pipeline nom="formulaire_traiter" inclure="mcp_orr_pipelines.php" />	
 
 	<!--
 		Exemple de commandes
 		* dependances
 		<necessite nom="saisies" compatibilite="[1.21.0;]" />
-		<utilise nom="saisies" compatibilite="[1.21.0;]" />
+
 		<lib nom="simplehtmldom" lien="http://chemin_vers_archive.zip" />
 		* pipelines
 		<pipeline nom="autoriser" inclure="mcp_orr_autorisations.php" />
