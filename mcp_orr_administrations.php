@@ -50,7 +50,7 @@ function mcp_orr_upgrade($nom_meta_base_version, $version_cible) {
 	# ...
 
 	$maj['create'] = array(array('maj_tables', array('spip_orr_ressources_liens')));
-
+	$maj['1.0.2'] = array(array('maj_tables', array('spip_orr_ressources')));
 	include_spip('base/upgrade');
 	maj_plugin($nom_meta_base_version, $version_cible, $maj);
 }

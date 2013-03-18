@@ -32,8 +32,45 @@ function mcp_orr_affiche_milieu($flux) {
     return $flux;
 }
 
+/**
+ * Ajouter les objets sur les vues de rubriques
+ *
+ * @pipeline affiche_enfants
+ * @param  array $flux Données du pipeline
+ * @return array       Données du pipeline
+**/
+function mcp_orr_affiche_enfants($flux) {
+    if ($e = trouver_objet_exec($flux['args']['exec'])
+        AND $e['type'] == 'rubrique'
+        AND $e['edition'] == false) {
+
+        $id_rubrique = $flux['args']['id_rubrique'];
+        $lister_objets = charger_fonction('lister_objets', 'inc');
+
+        $bouton = '';
+        if (autoriser('creerorr_ressourcedans', 'rubrique', $id_rubrique)) {
+            $bouton .= icone_verticale(_T("orr_ressource:icone_creer_orr_ressource"), generer_url_ecrire("orr_ressource_edit", "id_rubrique=$id_rubrique"), "orr_ressource-24.png", "new", "right")
+                    . "<br class='nettoyeur' />";
+        }
+
+        $flux['data'] .= $lister_objets('orr_ressources', array('titre'=>_T('orr_ressource:titre_orr_ressources_rubrique') , 'id_rubrique'=>$id_rubrique, 'par'=>'orr_ressource_nom'));
+        $flux['data'] .= $bouton;
+
+    }
+    return $flux;
+}
+
 function mcp_orr_formulaire_charger($flux){
  $form=$flux['args']['form'];
+ 
+  
+ // cré un contact si pas encore existant
+ if($form == 'editer_orr_ressource'){
+     echo serialize($flux);
+        if(!isset($flux['data']['texte']))$flux['data']['texte']='';
+        if(!isset($flux['data']['descriptif']))$flux['data']['descriptif']='';        
+    }
+
  
  // cré un contact si pas encore existant
  if($form == 'inscription_client'
@@ -45,13 +82,23 @@ function mcp_orr_formulaire_charger($flux){
         $inscrire_client();
         }
     }
-     return($flux);
+     return $flux;
 }
 
 
 function mcp_orr_formulaire_traiter($flux){
     // Si on est sur le formulaire client qui est sur la page identification
     $form=$flux['args']['form'];
+    
+    if($form == 'editer_orr_ressource'){
+        $valeurs=array(
+        'texte'=>_request('texte'),
+        'descriptif'=>_request('texte'),
+        );
+        sql_updateq('spip_orr_ressources',$valeurs,'id_orr_ressource='.$flux['data']['id_orr_ressource']);
+        
+    }
+    
     if($form == 'editer_client'
          and _request('page') == 'shop'
          and _request('appel') == 'mes_coordonnees'
@@ -92,6 +139,8 @@ function mcp_orr_formulaire_traiter($flux){
                                 'id_objet' => $id_commande,
                                 'type' => 'livraison' ) );
     }
+
+
     return($flux);
 }
 

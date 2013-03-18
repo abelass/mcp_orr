@@ -1,0 +1,31 @@
+[(#ID_OBJET|oui)
+	[(#AUTORISER{modifier,orr_ressource,#ID_ORR_RESSOURCE}|sinon_interdire_acces)]
+][(#ID_OBJET|non)
+	#SET{id_rubrique,#ENV{id_rubrique,#ENV{id_parent}}|trouver_rubrique_creer_objet{orr_ressources}}
+	[(#GET{id_rubrique}|non|ou{[(#AUTORISER{creerorr_ressourcedans,rubrique,#GET{id_rubrique}})]}|sinon_interdire_acces)]
+]
+ 
+#SET{redirect,#ENV{redirect}|sinon{#ENV{lier_trad,#ID_OBJET}|?{#ENV{lier_trad,#ID_OBJET}|generer_url_entite{orr_ressource},#GET{id_rubrique}|?{#GET{id_rubrique}|generer_url_entite{rubrique},#URL_ECRIRE{rubriques}}}}}
+
+<div class='cadre-formulaire-editer'>
+<div class="entete-formulaire">
+	[(#ID_ORR_RESSOURCE|oui)
+	[(#GET{redirect}|icone_verticale{Retour,orr_ressource,'',left retour[(#ENV{retourajax,''}|oui)ajax preload]})]
+	]
+	[
+		[(#ID_ORR_RESSOURCE|?{<:orr_ressource:icone_modifier_orr_ressource:>,<:orr_ressource:icone_creer_orr_ressource:>})]
+		<h1>(#ENV{titre,#INFO_ORR_RESSOURCE_NOM{orr_ressource,#ID_ORR_RESSOURCE}|sinon{<:info_sans_titre:>}})</h1>
+	]
+</div>
+
+#SET{redirect,#ENV{redirect,#ID_ORR_RESSOURCE|generer_url_entite{orr_ressource}}}
+[(#ENV{retourajax,''}|oui)
+	#SET{redirect,'javascript:if (window.jQuery) jQuery(".entete-formulaire .retour a").followLink();'}
+	<div class="ajax">
+]
+		[(#FORMULAIRE_EDITER_ORR_RESSOURCE{#ENV{id_orr_ressource,oui}, #GET{id_rubrique}, #GET{redirect}, #ENV{associer_objet}, #ENV{lier_trad}})]
+[(#ENV{retourajax,''}|oui)
+	</div>
+	<script type="text/javascript">/*<!\[CDATA\[*/reloadExecPage('#ENV{exec}');/*\]\]>*/</script>
+]
+</div>

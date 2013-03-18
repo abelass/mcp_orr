@@ -1,5 +1,6 @@
 [(#SET{defaut_tri,#ARRAY{
 	multi orr_ressource_nom,1,
+	date,-1, 
 	id_orr_ressource,1
 }})
 ]
@@ -23,7 +24,7 @@ a mis a jour la valeur avec la page reelle]
 </caption>]
 	<thead>
 		#SET{p,''}
-		<BOUCLE_lettre(ORR_RESSOURCES){tout}{!id_orr_ressource IN #GET{exclus}}{where?}{recherche?}
+		<BOUCLE_lettre(ORR_RESSOURCES){tout}{!id_orr_ressource IN #GET{exclus}}{where?}{recherche?}{statut?}
 			{tri #ENV{par,multi orr_ressource_nom},#GET{defaut_tri}}{id_orr_ressource==#GET{afficher_lettres}|?{'.*','A'}}>[
 		(#ORR_RESSOURCE_NOM**|extraire_multi|initiale|unique|oui)
 		[(#SET{p,#GET{p}|concat{
@@ -38,14 +39,16 @@ a mis a jour la valeur avec la page reelle]
 		[<tr><td colspan="3"><p class='pagination'>(#GET{p})</p></td></tr>]
 	
 		<tr class='first_row'>
+			<th class='statut' scope='col'>[(#TRI{statut,<span title="<:lien_trier_statut|attribut_html:>">#</span>,ajax})]</th> 
 			<th class='orr_ressource_nom' scope='col'>[(#TRI{multi orr_ressource_nom,<:orr_ressource:label_orr_ressource_nom:>,ajax})]</th>
 			<th class='action' scope='col'></th>
 		</tr>
 	</thead>
 	<tbody>
-	<BOUCLE_liste_orr_ressources(ORR_RESSOURCES){!id_orr_ressource IN #GET{exclus}}{where?}{recherche?}
+	<BOUCLE_liste_orr_ressources(ORR_RESSOURCES){!id_orr_ressource IN #GET{exclus}}{where?}{recherche?}{statut?}
 		{tri #ENV{par,multi orr_ressource_nom},#GET{defaut_tri}}{pagination #ENV{nb,10} orra}>
 		<tr class="[(#COMPTEUR_BOUCLE|alterner{row_odd,row_even})][ (#EXPOSE|unique)][ (#ORR_RESSOURCE_NOM**|extraire_multi|initiale|=={#ENV{i}}|?{on}|unique)]">
+			<td class='statut'>[(#STATUT|puce_statut{orr_ressource})]</td> 
 			<td class='orr_ressource_nom'>[(#LOGO_ORR_RESSOURCE|image_reduire{20,20})]<a href="[(#ID_ORR_RESSOURCE|generer_url_entite{orr_ressource})]">#ORR_RESSOURCE_NOM</a></td>
 			<td class='action'>
 				<button class="button link add" name="ajouter_lien\[orr_ressource-#ID_ORR_RESSOURCE-#OBJET-#ID_OBJET\]" value="+"><:orr_ressource:ajouter_lien_orr_ressource:> [(#CHEMIN_IMAGE{ajouter-12.png}|balise_img{'+'})]</button>

@@ -27,6 +27,26 @@ function mcp_orr_declarer_tables_interfaces($interfaces) {
 
 
 
+function mcp_orr_declarer_tables_principales($tables_principales){
+
+      $tables_principales['spip_orr_ressources']['field']=array(
+        "id_rubrique"=> "bigint(21) NOT NULL DEFAULT 0", 
+        "id_secteur" => "bigint(21) NOT NULL DEFAULT 0", 
+        'descriptif'=> "text NOT NULL DEFAULT ''",
+        'texte'=> "text NOT NULL DEFAULT ''",
+        "date" => "datetime NOT NULL DEFAULT '0000-00-00 00:00:00'", 
+        'statut'=> "varchar(20)  DEFAULT '0' NOT NULL",
+        'lang'=> "varchar(20)  DEFAULT '0' NOT NULL",
+        "langue_choisie"=> "VARCHAR(3) DEFAULT 'non'",
+         "id_trad"=> "bigint(21) NOT NULL DEFAULT 0", 
+        );
+
+        
+        return $tables_principales;
+        
+        
+        
+}
 
 
 /**

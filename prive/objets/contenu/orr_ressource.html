@@ -1,0 +1,33 @@
+<BOUCLE_orr_ressource(ORR_RESSOURCES){id_orr_ressource}{statut?}>
+
+[<div class="champ contenu_orr_ressource_nom[ (#ORR_RESSOURCE_NOM*|strlen|?{'',vide})]">
+	<label><:orr_ressource:label_orr_ressource_nom:> : </label>
+	<span dir='#LANG_DIR' class='#EDIT{orr_ressource_nom} orr_ressource_nom'>(#ORR_RESSOURCE_NOM)</span>
+</div>]
+
+[<div class="champ contenu_orr_ressource_couleur[ (#ORR_RESSOURCE_COULEUR*|strlen|?{'',vide})]">
+	<label><:orr_ressource:label_orr_ressource_couleur:> : </label>
+	<span dir='#LANG_DIR' class='#EDIT{orr_ressource_couleur} orr_ressource_couleur'>(#ORR_RESSOURCE_COULEUR)</span>
+</div>]
+
+[<div class="champ contenu_composition[ (#COMPOSITION*|strlen|?{'',vide})]">
+	<label><:orr_ressource:label_composition:> : </label>
+	<span dir='#LANG_DIR' class='#EDIT{composition} composition'>(#COMPOSITION)</span>
+</div>]
+
+[<div class="champ contenu_composition_lock[ (#COMPOSITION_LOCK*|strlen|?{'',vide})]">
+	<label><:orr_ressource:label_composition_lock:> : </label>
+	<span dir='#LANG_DIR' class='#EDIT{composition_lock} composition_lock'>(#COMPOSITION_LOCK)</span>
+</div>]
+
+[<div class="champ contenu_descriptif[ (#DESCRIPTIF*|strlen|?{'',vide})]">
+	<label><:orr_ressource:label_descriptif:> : </label>
+	<span dir='#LANG_DIR' class='#EDIT{descriptif} descriptif'>(#DESCRIPTIF)</span>
+</div>]
+
+[<div class="champ contenu_texte[ (#TEXTE*|strlen|?{'',vide})]">
+	<label><:orr_ressource:label_texte:> : </label>
+	<span dir='#LANG_DIR' class='#EDIT{texte} texte'>(#TEXTE)</span>
+</div>]
+
+</BOUCLE_orr_ressource>

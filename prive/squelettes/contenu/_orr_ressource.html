@@ -1,0 +1,46 @@
+[(#AUTORISER{voir,orr_ressource,#ID_ORR_RESSOURCE}|sinon_interdire_acces)]
+<BOUCLE_orr_ressource(ORR_RESSOURCES){id_orr_ressource}{statut==.*}{si #ENV{exec}|=={orr_ressource}}>
+[(#BOITE_OUVRIR{[
+	[(#AUTORISER{modifier,orr_ressource,#ID_ORR_RESSOURCE})
+		[(#ID_ORR_RESSOURCE|afficher_qui_edite{orr_ressource}|non)
+			[(#URL_ECRIRE{orr_ressource_edit,id_orr_ressource=#ID_ORR_RESSOURCE}|icone_verticale{<:orr_ressource:icone_modifier_orr_ressource:>,orr_ressource,edit,right ajax preload})]
+		]
+		[(#ID_ORR_RESSOURCE|afficher_qui_edite{orr_ressource}|oui)
+			[(#URL_ECRIRE{orr_ressource_edit,id_orr_ressource=#ID_ORR_RESSOURCE}|icone_verticale{#ID_ORR_RESSOURCE|afficher_qui_edite{orr_ressource},warning-24,'',right edition_deja ajax preload})]
+		]
+	]
+
+	<h1>[(#RANG). ](#ORR_RESSOURCE_NOM|sinon{<:info_sans_titre:>})[(#CHEMIN_IMAGE{orr_ressource-24.png}|balise_img{orr_ressource,cadre-icone})]</h1>
+
+],simple fiche_objet})]
+
+<div class="ajax">
+	#FORMULAIRE_DATER{orr_ressource,#ID_ORR_RESSOURCE}
+</div>
+
+<!--affiche_milieu-->
+
+<div id="wysiwyg">
+<INCLURE{fond=prive/objets/contenu/orr_ressource,id=#ID_ORR_RESSOURCE,id_orr_ressource=#ID_ORR_RESSOURCE,virtuel=oui,ajax=wysiwyg,wysiwyg=1}>
+</div>
+
+<div class="nettoyeur"></div>
+
+[(#AUTORISER{modifier,orr_ressource,#ID_ORR_RESSOURCE})
+	[(#ID_ORR_RESSOURCE|afficher_qui_edite{orr_ressource}|non)
+		[(#URL_ECRIRE{orr_ressource_edit,id_orr_ressource=#ID_ORR_RESSOURCE}|icone_verticale{<:orr_ressource:icone_modifier_orr_ressource:>,orr_ressource,edit,right ajax preload})]
+	]
+	[(#ID_ORR_RESSOURCE|afficher_qui_edite{orr_ressource}|oui)
+		[(#URL_ECRIRE{orr_ressource_edit,id_orr_ressource=#ID_ORR_RESSOURCE}|icone_verticale{#ID_ORR_RESSOURCE|afficher_qui_edite{orr_ressource},warning-24,'',right edition_deja ajax preload})]
+	]
+]
+
+#PIPELINE{afficher_complement_objet,#ARRAY{args,#ARRAY{type,orr_ressource,id,#ID_ORR_RESSOURCE},data,'<div class="nettoyeur"></div>'}}
+
+#BOITE_FERMER
+[(#EVAL{_AJAX}|oui)
+	<script type="text/javascript">/*<!\\[CDATA\\[*/reloadExecPage('#ENV{exec}','#navigation,#chemin');/*\\]\\]>*/</script>
+]
+</BOUCLE_orr_ressource>
+[(#ENV**{exec}|=={orr_ressource_edit}|?{#INCLURE{fond=prive/squelettes/contenu/orr_ressource_edit,redirect='',env,retourajax=oui},#REM|sinon_interdire_acces})]
+<//B_orr_ressource>
